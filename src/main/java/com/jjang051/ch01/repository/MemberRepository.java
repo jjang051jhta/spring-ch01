@@ -3,10 +3,7 @@ package com.jjang051.ch01.repository;
 import com.jjang051.ch01.dto.Member;
 import org.springframework.stereotype.Repository;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Repository
 public class MemberRepository {
@@ -24,4 +21,10 @@ public class MemberRepository {
     public List<Member> findAll() {
         return new ArrayList<>(memberMap.values());
     }
+
+    public Optional<Member> findById(int idx) {
+        Optional<Member> findedMember = Optional.ofNullable(memberMap.get(idx));
+        return findedMember;
+    }
+
 }

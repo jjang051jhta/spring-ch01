@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -22,4 +23,9 @@ public class MemberService {
     public List<Member> findAllMember() {
         return memberRepository.findAll();
     }
+
+    public Optional<Member> infoMember(int idx) {
+        return memberRepository.findById(idx);
+    }
+
 }

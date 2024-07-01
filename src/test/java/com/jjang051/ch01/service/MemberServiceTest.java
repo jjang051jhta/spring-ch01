@@ -8,6 +8,8 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.util.List;
+
 import static org.assertj.core.api.Assertions.assertThat;
 
 
@@ -50,5 +52,41 @@ class MemberServiceTest {
         assertThat(userName).isNotNull();
         assertThat(dbName).isNotNull();
         assertThat(userName).isNotEqualTo(dbName);
+    }
+
+    @Test
+    void testSaveMember() {
+        Member member = Member.builder()
+                .userId("jjang051")
+                .userName("장성호")
+                .userPw("1234")
+                .build();
+        Member saveMember =
+                memberRepository.save(member);
+        assertThat(member).isEqualTo(saveMember);
+    }
+
+    @Test
+    void findAllMember() {
+        Member member = Member.builder()
+                .userId("jjang051")
+                .userName("장성호")
+                .userPw("1234")
+                .build();
+        Member member02 = Member.builder()
+                .userId("jjang052")
+                .userName("장동건")
+                .userPw("1234")
+                .build();
+
+        memberRepository.save(member);
+        memberRepository.save(member02);
+        List<Member> memberList = memberRepository.findAll();
+        assertThat(memberList.size()).isEqualTo(2);
+
+    }
+
+    @Test
+    void infoMember() {
     }
 }

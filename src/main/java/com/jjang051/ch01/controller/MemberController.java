@@ -11,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.Optional;
 
 @Controller
 @RequiredArgsConstructor
@@ -28,9 +29,11 @@ public class MemberController {
     }
 
     @GetMapping("/{id}")
-    @ResponseBody
-    public String info(@PathVariable int id) {
-        return ""+id;
+    public String info(@PathVariable int id,Model model) {
+
+        Member infoMember = memberService.infoMember(id).get();
+        model.addAttribute("infoMember",infoMember);
+        return "member/info";
     }
     @GetMapping("/signin")
     public String signin() {

@@ -1,0 +1,18 @@
+#yml로만들어서 실서버용 로컬용 분리 가능
+spring:
+  application:
+    name: ch01
+  devtools:
+    restart:
+      enabled: true
+    livereload:
+      enabled: true
+#  thymeleaf:
+#    prefix: classpath:/views/
+#    suffix: .html
+#  mvc:
+#    view:
+#      prefix: classpath:/views/
+#      suffix: .html
+server:
+  port: 8080

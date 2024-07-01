@@ -88,5 +88,6 @@ class MemberServiceTest {
 
     @Test
     void infoMember() {
+        //여기테스트 코드 작성해보기...
     }
 }

@@ -25,7 +25,6 @@ public class MemberService {
     }
 
     public Optional<Member> infoMember(int idx) {
-        return memberRepository.findById(idx);
+        return  memberRepository.findById(idx);
     }
-
 }

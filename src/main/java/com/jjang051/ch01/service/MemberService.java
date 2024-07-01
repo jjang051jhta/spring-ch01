@@ -6,6 +6,9 @@ import com.jjang051.ch01.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class MemberService {
@@ -13,7 +16,10 @@ public class MemberService {
     private final MemberRepository  memberRepository;
 
     public Member saveMember(Member member) {
-        Member saveMember = memberRepository.save(member);
-        return saveMember;
+        return memberRepository.save(member);
+    }
+
+    public List<Member> findAllMember() {
+        return memberRepository.findAll();
     }
 }

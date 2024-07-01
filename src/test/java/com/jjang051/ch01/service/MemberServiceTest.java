@@ -35,4 +35,20 @@ class MemberServiceTest {
     void test03() {
         assertThat(1+1).isEqualTo(2);
     }
+
+    @Test
+    @DisplayName("숫자 테스트")
+    void test04() {
+        int num01=10;
+        int num02=0;
+        int num03=-20;
+        String userName="장성호";
+        String dbName="장동건";
+        assertThat(num01).isPositive();
+        assertThat(num02).isZero();
+        assertThat(num03).isNegative();
+        assertThat(userName).isNotNull();
+        assertThat(dbName).isNotNull();
+        assertThat(userName).isNotEqualTo(dbName);
+    }
 }

@@ -7,6 +7,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -20,18 +21,24 @@ public class MemberController {
     private final MemberService memberService;
 
     @GetMapping
-    public String list() {
+    public String list(Model model) {
         ArrayList<Member> members = (ArrayList<Member>) memberService.findAllMember();
+        model.addAttribute("members", members);
         return "member/members";
     }
 
+    @GetMapping("/{id}")
+    @ResponseBody
+    public String info(@PathVariable int id) {
+        return ""+id;
+    }
     @GetMapping("/signin")
     public String signin() {
         //"/templates/"+ member/signin+".html"
         return "member/signin";
     }
 
-    @PostMapping("/signin")
+    //@PostMapping("/signin")
     public String signinProcess(@RequestParam String userId,
                                 @RequestParam String userName,
                                 @RequestParam String userPw) {
@@ -48,7 +55,7 @@ public class MemberController {
         log.info("saveMember={}",saveMember.toString());
         return "redirect:/member";
     }
-    //@PostMapping("/signin")
+    @PostMapping("/signin")
     public String signinProcess02(@ModelAttribute Member paramMember) {
 
         //Member paramMember = new Member();

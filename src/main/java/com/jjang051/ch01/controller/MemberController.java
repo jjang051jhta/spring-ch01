@@ -9,12 +9,21 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+
 @Controller
 @RequiredArgsConstructor
 @Slf4j
+@RequestMapping("/member")
 public class MemberController {
 
     private final MemberService memberService;
+
+    @GetMapping
+    public String list() {
+        ArrayList<Member> members = (ArrayList<Member>) memberService.findAllMember();
+        return "member/members";
+    }
 
     @GetMapping("/signin")
     public String signin() {
@@ -22,19 +31,24 @@ public class MemberController {
         return "member/signin";
     }
 
-    //@PostMapping("/signin")
+    @PostMapping("/signin")
     public String signinProcess(@RequestParam String userId,
                                 @RequestParam String userName,
                                 @RequestParam String userPw) {
-        Member paramMember = new Member();
-        paramMember.setUserId(userId);
-        paramMember.setUserName(userName);
-        paramMember.setUserPw(userPw);
+//        Member paramMember = new Member();
+//        paramMember.setUserId(userId);
+//        paramMember.setUserName(userName);
+//        paramMember.setUserPw(userPw);
+        Member paramMember = Member.builder()
+                .userId(userId)
+                .userName(userName)
+                .userPw(userPw)
+                .build();
         Member saveMember = memberService.saveMember(paramMember);
         log.info("saveMember={}",saveMember.toString());
-        return "redirect:/";
+        return "redirect:/member";
     }
-    @PostMapping("/signin")
+    //@PostMapping("/signin")
     public String signinProcess02(@ModelAttribute Member paramMember) {
 
         //Member paramMember = new Member();
@@ -43,6 +57,6 @@ public class MemberController {
         //paramMember.setUserPw(userPw);
         Member saveMember = memberService.saveMember(paramMember);
         log.info("saveMember={}",saveMember.toString());
-        return "redirect:/";
+        return "redirect:/member";
     }
 }

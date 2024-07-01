@@ -44,7 +44,7 @@ public class TestController {
         return "aa";
     }
 
-    @GetMapping("/member")
+    //@GetMapping("/member")
     @ResponseBody
     public List<Member> responseMember() {
         List<Member> members = new ArrayList<>();

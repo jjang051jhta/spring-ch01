@@ -95,7 +95,7 @@ public class MemberController {
     public String signinProcess03(@ModelAttribute Member paramMember,
                                   BindingResult bindingResult,
                                   Model model) {
-        Map<String, String> errorMap = new HashMap<>();
+        //Map<String, String> errorMap = new HashMap<>();
         //데이터가 넘어오는지 안넘어오는지..
         if(!StringUtils.hasText(paramMember.getUserId())){
             bindingResult.addError(
@@ -107,7 +107,7 @@ public class MemberController {
             log.info("user name은 필수 입력입니다.");
         }
         if(!StringUtils.hasText(paramMember.getUserPw())) {
-            bindingResult.addError(new FieldError("paramMember","userName","password은 필수 입력입니다."));
+            bindingResult.addError(new FieldError("paramMember","userPw","password은 필수 입력입니다."));
             log.info("password은 필수 입력입니다.");
         }
         if(bindingResult.hasErrors()) {

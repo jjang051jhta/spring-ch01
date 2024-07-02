@@ -8,9 +8,14 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.StringUtils;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Optional;
 
 @Controller
@@ -38,9 +43,10 @@ public class MemberController {
         return "member/info";
     }
     @GetMapping("/signin")
-    public String signin() {
+    public String signin(Model model) {
         //"/templates/"+ member/signin+".html"
-        return "member/signin";
+        model.addAttribute("paramMember",new Member());
+        return "member/signin02";
     }
 
     //@PostMapping("/signin")
@@ -60,13 +66,54 @@ public class MemberController {
         log.info("saveMember={}",saveMember.toString());
         return "redirect:/member";
     }
+    //@PostMapping("/signin")
+    public String signinProcess02(@ModelAttribute Member paramMember,
+                                  Model model) {
+        Map<String, String> errorMap = new HashMap<>();
+        //데이터가 넘어오는지 안넘어오는지..
+        if(!StringUtils.hasText(paramMember.getUserId())){
+            errorMap.put("userId","user id는 필수 입력입니다.");
+            log.info("user id는 필수 입력입니다.");
+        }
+        if(!StringUtils.hasText(paramMember.getUserName())) {
+            errorMap.put("userName","user name은 필수 입력입니다.");
+            log.info("user name은 필수 입력입니다.");
+        }
+        if(!StringUtils.hasText(paramMember.getUserPw())) {
+            errorMap.put("userPw","password은 필수 입력입니다.");
+            log.info("password은 필수 입력입니다.");
+        }
+        if(!errorMap.isEmpty()) {
+            model.addAttribute("errorMap",errorMap);
+            return "member/signin";
+        }
+        Member saveMember = memberService.saveMember(paramMember);
+        log.info("saveMember={}",saveMember.toString());
+        return "redirect:/member";
+    }
     @PostMapping("/signin")
-    public String signinProcess02(@ModelAttribute Member paramMember) {
-
-        //Member paramMember = new Member();
-        //paramMember.setUserId(userId);
-        //paramMember.setUserName(userName);
-        //paramMember.setUserPw(userPw);
+    public String signinProcess03(@ModelAttribute Member paramMember,
+                                  BindingResult bindingResult,
+                                  Model model) {
+        Map<String, String> errorMap = new HashMap<>();
+        //데이터가 넘어오는지 안넘어오는지..
+        if(!StringUtils.hasText(paramMember.getUserId())){
+            bindingResult.addError(
+                    new FieldError("paramMember","userId","user id는 필수 입력입니다."));
+            log.info("user id는 필수 입력입니다.");
+        }
+        if(!StringUtils.hasText(paramMember.getUserName())) {
+            bindingResult.addError(new FieldError("paramMember","userName","user name은 필수 입력입니다."));
+            log.info("user name은 필수 입력입니다.");
+        }
+        if(!StringUtils.hasText(paramMember.getUserPw())) {
+            bindingResult.addError(new FieldError("paramMember","userName","password은 필수 입력입니다."));
+            log.info("password은 필수 입력입니다.");
+        }
+        if(bindingResult.hasErrors()) {
+            //model.addAttribute("errorMap",errorMap);
+            return "member/signin02";
+        }
         Member saveMember = memberService.saveMember(paramMember);
         log.info("saveMember={}",saveMember.toString());
         return "redirect:/member";

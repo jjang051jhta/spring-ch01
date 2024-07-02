@@ -33,6 +33,8 @@ public class MemberController {
 
         Member infoMember = memberService.infoMember(id).get();
         model.addAttribute("infoMember",infoMember);
+        model.addAttribute("title","회원정보 페이지");
+        model.addAttribute("status",true);
         return "member/info";
     }
     @GetMapping("/signin")

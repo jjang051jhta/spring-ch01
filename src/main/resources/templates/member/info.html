@@ -3,13 +3,40 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <link rel="stylesheet" href="../../../static/css/bootstrap.css"
+          th:href="@{/css/bootstrap.css}">
+    <script src="../../../static/js/bootstrap.bundle.js"
+            th:src="@{/js/bootstrap.bundle.js}"></script>
 </head>
 <body>
-<h1>회원정보</h1>
-<div>
-    <span th:text="${infoMember.idx}"></span>
-    <span th:text="${infoMember.userId}"></span>
-    <span th:text="${infoMember.userName}"></span>
+<div class="container">
+    <th:block th:if="${status}">
+        <h1 th:text="|WELCOME ${title}|">회원정보</h1>
+        <table class="table table-bordered">
+            <colgroup>
+                <col style="width:150px">
+                <col>
+            </colgroup>
+            <tbody>
+            <tr>
+                <th>NO</th>
+                <td><span th:text="${infoMember.idx}">1</span></td></td>
+
+            </tr>
+            <tr>
+                <th>ID</th>
+                <td><span th:text="${infoMember.userId}">1</span></td></td>
+
+            </tr>
+            <tr>
+                <th>NAME</th>
+                <td><span th:text="${infoMember.userName}">1</span></td></td>
+
+            </tr>
+            </tbody>
+        </table>
+    </th:block>
+    <p class="alert-danger mt-5" th:unless="${status}">회원정보가 없습니다.</p>
 </div>
 </body>
 </html>

@@ -27,4 +27,7 @@ public class MemberRepository {
         return findedMember;
     }
 
+    public void deleteAll() {
+        memberMap.clear();
+    }
 }

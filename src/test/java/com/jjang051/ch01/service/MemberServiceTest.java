@@ -89,5 +89,20 @@ class MemberServiceTest {
     @Test
     void infoMember() {
         //여기테스트 코드 작성해보기...
+        Member member = Member.builder()
+                .userId("jjang051")
+                .userName("장성호")
+                .userPw("1234")
+                .build();
+        Member member02 = Member.builder()
+                .userId("jjang052")
+                .userName("장동건")
+                .userPw("1234")
+                .build();
+        memberRepository.save(member);
+        memberRepository.save(member02);
+        Member findMmeber01 = memberRepository.findById(member.getIdx()).get();
+        assertThat(findMmeber01).isEqualTo(member);
+
     }
 }

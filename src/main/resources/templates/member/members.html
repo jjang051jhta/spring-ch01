@@ -3,14 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <link rel="stylesheet" href="/css/bootstrap.css">
+    <script src="/js/bootstrap.bundle.js"></script>
 </head>
 <body>
 <h1>Member list</h1>
 <ul>
-    <li th:each="member : ${members}">
-        <a href="" th:href="@{/member/{param}(param=${member.idx})}" th:text="${member.idx}">01</a>
-        <a href="" th:href="@{/member/{param}(param=${member.idx})}" th:text="${member.userId}">jjang051</a>
-        <span th:text="${member.userName}">장성호</span>
+    <li>
+        <th:block th:each="member : ${members}">
+            <div>
+                <a href="" th:href="@{/member/{param}(param=${member.idx})}" th:text="${member.idx}">01</a>
+                <a href="" th:href="@{/member/{param}(param=${member.idx})}" th:text="${member.userId}">jjang051</a>
+            </div>
+            <div>
+                <span th:text="${member.userName}">장성호</span>
+            </div>
+        </th:block>
     </li>
     <!--<li>
         <a href="">01</a>

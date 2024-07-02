@@ -22,6 +22,7 @@ class MemberServiceTest {
     void saveMember() {
         Member member = Member.builder()
                 .userName("장성호")
+
                 .userId("jjang051")
                 .userPw("1234")
                 .build();
